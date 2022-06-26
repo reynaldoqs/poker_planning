@@ -1,8 +1,27 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { ThemeProvider } from "theme-ui";
+import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import { AuthProviderWrapper } from "~/context";
+import { theme } from "~/styles";
+import "../styles/globals.css";
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  return (
+    <AuthProviderWrapper session={session}>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+        {/* <ToastContainer
+            position="bottom-left"
+            pauseOnHover
+            hideProgressBar
+            closeButton={false}
+            autoClose={2000}
+            theme="dark"
+            icon={false}
+          /> */}
+      </ThemeProvider>
+    </AuthProviderWrapper>
+  );
 }
 
-export default MyApp
+export default MyApp;
