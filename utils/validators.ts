@@ -4,7 +4,7 @@ export const isAuthorizedToManage = (room: Room, playerId: string) => {
   if (room.roomConfig.whoCanManage === "OWNER") {
     return playerId === room.roomConfig?.owner?.providerId;
   }
-  if (room.roomConfig.whoCanManage === "EVERYBODY") {
+  if (room.roomConfig.whoCanManage === "ANYONE") {
     return Boolean(room.players.find((p) => p.playerId === playerId));
   }
   return false;

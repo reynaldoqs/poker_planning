@@ -111,11 +111,32 @@ export const updateRoomConfig = async (
   config: Partial<RoomConfig>,
   playerId: string
 ) => {
-  const room = await DBRoom.findById(roomId);
-  if (!room) return;
-  const updatedConfig = { ...room.roomConfig, ...config };
-  room.roomConfig = updatedConfig;
-  return room.save();
+  const configToUpdate = {
+    ...(config.authentication && {
+      "roomConfig.authentication": config.authentication,
+    }),
+    ...(config.issues && {
+      "roomConfig.issues": config.issues,
+    }),
+    ...(config.owner && {
+      "roomConfig.owner": config.owner,
+    }),
+    ...(config.title && {
+      "roomConfig.title": config.title,
+    }),
+    ...(config.whoCanManage && {
+      "roomConfig.whoCanManage": config.whoCanManage,
+    }),
+    ...(config.withTimer && {
+      "roomConfig.withTimer": config.withTimer,
+    }),
+  };
+
+  return DBRoom.findOneAndUpdate(
+    { _id: roomId },
+    { $set: configToUpdate },
+    { new: true }
+  );
 };
 
 export const updateBoardConfig = async (

@@ -21,7 +21,7 @@ export const BOARD_STATUS = [
 
 export const ISSUE_STATUS = ["TODO", "IN_PROGRESS", "DONE"] as const;
 
-export const MANAGE_OPTIONS = ["OWNER", "EVERYBODY"] as const;
+export const MANAGE_OPTIONS = ["OWNER", "ANYONE"] as const;
 
 export const VOTE_TYPES = ["NUMBER", "STRING"] as const;
 
@@ -29,4 +29,15 @@ export const PLAYER_STATUS = ["CONNECTED", "DISCONNECTED", "LEFT"] as const;
 
 export const PLAYER_TYPES = ["PLAYER", "OBSERVER"] as const;
 
-export const AVAILABLE_REACTIONS = [] as const;
+export const AVAILABLE_REACTIONS = ["LIKE", "DISLIKE"] as const;
+
+export const DECK_CARDS = [
+  {
+    label: "Fibonacci ( 0, 1, 2, 3, 5, 8, 13, 21, 34, 55)",
+    value: ["0", "1", "2", "3", "5", "8", "13", "21", "34", "55"],
+  },
+  {
+    label: "Powers of 2 ( 0, 1, 2, 4, 8, 16, 32, 64 )",
+    value: ["0", "1", "2", "4", "8", "16", "32", "64"],
+  },
+];

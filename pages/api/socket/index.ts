@@ -13,7 +13,7 @@ import {
   onUpdateBoardStatus,
   onUpdatePlayer,
   onUpdateRoomConfig,
-} from "~/listeners";
+} from "~/listeners/room.server";
 import dbConnect from "~/utils/dbConnect";
 
 const SocketHandler = async (

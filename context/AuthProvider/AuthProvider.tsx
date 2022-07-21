@@ -1,13 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
-import consola from "consola";
+import print from "consola";
 import type { FC, ReactNode } from "react";
 
+import { generateLocalUser } from "~/lib/browserAuth/browserAuth";
 import {
-  generateLocalUser,
-  getLocalUser,
-  removeLocalUser,
-} from "~/services/BrowserAuth/BrowserAuth";
+  getItem,
+  removeItem,
+  setItem,
+} from "~/services/storage/storage.client";
 import { User, UserSchema } from "~/types";
 import { AUTH_PROVIDERS } from "~/constants";
 
@@ -15,6 +16,9 @@ import type {
   AuthProviderState,
   AuthProviderWrapperProps,
 } from "./AuthProvider.types";
+import { delay } from "~/utils/misc";
+
+const LOCAL_USER_KEY = "pk_local_user";
 
 const authInitialStates: AuthProviderState = {
   user: null,
@@ -36,8 +40,9 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const onBrowserAuth = async (name: string) => {
     setLoading(true);
     const localUser = await generateLocalUser(name);
+    setItem(localUser, LOCAL_USER_KEY);
     // just to improve UX
-    // await delay(800);
+    //await delay(2800);
     setUser(localUser);
     setLoading(false);
   };
@@ -47,7 +52,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     name?: string
   ) => {
     if (user) {
-      consola.info("already logged in");
+      print.info("already logged in");
       return;
     }
     //setLoading(true); // reload page or status or onBrowserAuth will set it to false
@@ -61,14 +66,14 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const signOutHandler = async () => {
     console.log("pasa por signout");
     if (!user) {
-      consola.info("There is no user logged in");
+      print.info("There is no user logged in");
       return;
     }
     //setLoading(true); // reload page or browser auth will set it to false
     // just to improve UX
     //await delay(300);
     if (user.provider === AUTH_PROVIDERS.browser) {
-      removeLocalUser();
+      removeItem(LOCAL_USER_KEY);
       setUser(null);
       setLoading(false);
     } else {
@@ -81,7 +86,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setLoading(false);
     }
     if (status === "unauthenticated") {
-      const localUser = getLocalUser();
+      const localUser = getItem<User>(LOCAL_USER_KEY);
       if (localUser) {
         setUser(localUser);
       }

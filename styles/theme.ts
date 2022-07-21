@@ -3,14 +3,14 @@ import type { Theme } from "theme-ui";
 const makeTheme = <T extends Theme>(t: T) => t;
 
 export const theme = makeTheme({
-  breakpoints: ["40em", "52em", "64em", "76em", "88em", "100em"],
-  space: [0, 4, 8, 12, 16, 28, 32, 64, 128, 256],
+  breakpoints: ["480px", "768px", "1200px", "1440px"],
+  space: [0, 4, 8, 16, 24, 32, 40, 48, 56, 64],
   fonts: {
     body: "'Inter', sans-serif",
     heading: "inherit",
     monospace: "inherit",
   },
-  fontSizes: [8, 10, 12, 14, 16, 18, 20, 24, 32, 42, 64, 96],
+  fontSizes: [8, 10, 12, 14, 16, 20, 24, 32, 40, 48],
   lineHeights: ["1rem", "1.2rem", "1.4rem", "1.6rem", "1.8rem", "2rem"],
   borderWidths: [0, 1, 2, 4, 8, 10, 12],
   zIndices: [-1, 1, 2, 3, 4, 5],
@@ -24,18 +24,22 @@ export const theme = makeTheme({
     textLight: "#FFFFFF",
     text: "#D2D6E5",
     textDark: "#AFB3C3",
-    textGreen: "#AEBEB1",
-    backgroundLight: "#353338",
-    background: "#212431",
-    backgroundDark: "#141722",
+    backgroundLight: "#212431",
+    background: "#141722",
+    backgroundDark: "#0E1016",
     primary: "#5865f2",
     secondary: "#ff535f",
-    muted: "#577870",
-    accent: "#F8514D",
+    accent: "#6EFDBF",
     info: "#2196F3",
+    infoLight: "#8AB4F8",
     error: "#f2443e",
+    errorLight: "#F09891",
     success: "#64F57A",
+    successLight: "#81C995",
     warning: "#ecc04f",
+    warningLight: "#FDD663",
+    gold: "#FFBF00",
+    black: "#010101",
   },
   text: {
     heading: {
@@ -58,7 +62,6 @@ export const theme = makeTheme({
   styles: {
     root: {
       fontFamily: "'Inter', sans-serif",
-      boxSizing: "border-box",
       fontWeight: 400,
     },
   },

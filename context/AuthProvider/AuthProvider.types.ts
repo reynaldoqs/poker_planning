@@ -8,6 +8,7 @@ export type AuthProviderState = {
   isLoading: boolean;
   signIn: (provider: keyof typeof AUTH_PROVIDERS, name?: string) => void;
   signOut: () => void;
+  // onUserUpdate: (user: Partial<User>) => void; solo tener update del current player
 };
 
 export type AuthProviderWrapperProps = {

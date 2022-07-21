@@ -10,7 +10,7 @@ import {
   AVAILABLE_REACTIONS,
   PLAYER_TYPES,
 } from "~/constants";
-import type { DocumentRoom } from "~/types";
+import type { DocumentRoom, Room } from "~/types";
 
 // WARNING: This schema needs to by sync with Room type in ./types/room.ts
 
@@ -44,6 +44,8 @@ const roomSchema: Schema = new Schema({
     },
     authentication: {
       required: { type: Boolean, default: false },
+      allowedProviders: { type: [String], required: false },
+      extensions: { type: [String], required: false },
     },
     withTimer: { type: Boolean, default: false },
   },
@@ -89,5 +91,8 @@ const roomSchema: Schema = new Schema({
     },
   ],
 });
+const RoomModel =
+  mongoose.models.Room ||
+  mongoose.model<DocumentRoom, Room>("Room", roomSchema);
 
-export default mongoose.model<DocumentRoom>("Room", roomSchema);
+export default RoomModel;

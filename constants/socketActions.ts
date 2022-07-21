@@ -17,6 +17,7 @@ export const response = {
   playerLeft: "player_leave",
   playerDisconnect: "player_disconnect",
   playerReconnect: "player_reconnect",
+  //localPlayerUpdated: "local_player_updated",
 };
 
 export const system = {
@@ -24,4 +25,5 @@ export const system = {
   success: "success",
   error: "error",
   info: "info",
+  localDisconnection: "disconnect",
 };
