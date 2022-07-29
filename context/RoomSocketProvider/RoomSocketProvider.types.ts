@@ -17,6 +17,7 @@ export type RoomSocketProviderState = {
   connected: boolean;
   joined: boolean;
   joinCurrentRoom: () => void;
+  leaveCurrentRoom: () => void;
   updatePlayerVote: (value: string | null) => void;
   updatePlayerReaction: (reaction: any | null) => void;
   updateBoardStatus: (boardStatus: BoardStatus) => void;

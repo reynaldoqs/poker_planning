@@ -1,3 +1,5 @@
+import { KeyboardEvent } from "react";
+
 import {
   faGoogle,
   faGithub,
@@ -46,4 +48,12 @@ export const extractProviderIcon = (provider?: keyof typeof AUTH_PROVIDERS) => {
   if (provider === "google") return faGoogle;
 
   return extractBrowserIcon();
+};
+
+export const keyPressedTrigger = (key: string, cb: () => void) => {
+  return (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === key) {
+      cb();
+    }
+  };
 };

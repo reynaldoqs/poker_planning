@@ -7,5 +7,7 @@ export const PLAN_BENEFITS = {
   premium: [
     { icon: "☁️", label: "Save you results" },
     { icon: "🪅", label: "Customize your board" },
+    { icon: "🦜", label: "Customize your user" },
+    { icon: "🌗", label: "Dark and light theme" },
   ],
 } as const;

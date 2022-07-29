@@ -9,3 +9,6 @@ export * from "./Alert";
 export * from "./MainRoleSelector";
 export * from "./PlayerItem";
 export * from "./EditableText";
+export * from "./AudiSign";
+export * from "./Deck";
+export * from "./GameTable";

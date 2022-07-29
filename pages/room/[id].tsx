@@ -8,6 +8,8 @@ import {
   Navbar,
   PlayersPanel,
   RoomUserManager,
+  RoomVotesControl,
+  Board,
 } from "~/components";
 import { States } from "~/components/atoms/States";
 import { ROOM_KEY_ID } from "~/constants";
@@ -88,8 +90,8 @@ const Room: React.FC<RoomProps> = ({ room }) => {
           </Box>
           <Grid sx={{ gridTemplateRows: "70px 1fr 170px" }}>
             <BoardHeader />
-            <Box>as</Box>
-            <Box>ws</Box>
+            <Board />
+            <RoomVotesControl />
           </Grid>
         </AnimatedGrid>
         <Flex sx={{ size: "100%", gridArea: "sidebar" }}></Flex>

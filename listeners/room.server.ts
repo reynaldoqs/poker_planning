@@ -29,15 +29,17 @@ export const onDisconnect =
     try {
       const activeRoomId = socket.activeRoom;
       const socketPlayer = socket.player;
+
       if (!activeRoomId || !socketPlayer) throw "playerId or roomId not found";
 
+      // when disconnecting after leave room it throw an error (sync error)
       const updatedRoom = await updatePlayerStatus(
         activeRoomId,
         socketPlayer.playerId,
         "DISCONNECTED"
       );
-
-      if (!updatedRoom) throw "error updating player status";
+      if (!updatedRoom)
+        throw `error updating player::[${socketPlayer.playerId}]:[${socketPlayer.name}] status to DISCONNECTED`;
 
       socket.broadcast
         .to(activeRoomId)
@@ -239,6 +241,7 @@ export const onUpdateBoardConfig =
 
 export const onUpdatePlayer =
   (io: Server, socket: RoomSocket) => async (player: Player) => {
+    console.log("AQUI", player, socket.activeRoom);
     try {
       if (!socket.activeRoom) throw "room not found";
 

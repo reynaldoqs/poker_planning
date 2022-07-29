@@ -6,7 +6,7 @@ import { PlayerItemProps } from "./PlayerItem.types";
 
 export const PlayerItem: React.FC<PlayerItemProps> = ({ player }) => {
   const isObserver = player.type === "OBSERVER";
-  const isDisconnected = player.status === "CONNECTED";
+  const isDisconnected = player.status === "DISCONNECTED";
   return (
     <Flex
       sx={{

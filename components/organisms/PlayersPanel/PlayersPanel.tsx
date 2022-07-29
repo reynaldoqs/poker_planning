@@ -1,5 +1,5 @@
 import { Flex } from "theme-ui";
-import { Button, Typography } from "~/components/atoms";
+import { Adornment, Button, Typography } from "~/components/atoms";
 import { PlayerItem } from "~/components/molecules";
 import { useRoomSocket } from "~/context";
 
@@ -16,7 +16,12 @@ export const PlayersPanel: React.FC = () => {
         userSelect: "none",
       }}
     >
-      <Typography variant="heading1">Players</Typography>
+      <Adornment adornment="circle1" align="top">
+        <Typography variant="heading1" sx={{ pl: 1, pr: 2 }}>
+          Players
+        </Typography>
+      </Adornment>
+
       <Flex
         sx={{
           flex: 1,

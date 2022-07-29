@@ -5,3 +5,6 @@ export * from "./PlayersPanel";
 export * from "./BoardHeader";
 export * from "./RoomUserManager";
 export * from "./HomeUserManager";
+export * from "./GoogleOneTap";
+export * from "./RoomVotesControl";
+export * from "./Board";

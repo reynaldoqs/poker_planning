@@ -10,6 +10,7 @@ import {
   RoomBasicInputs,
 } from "~/components/molecules";
 import { useCreateRoom } from "~/services/room";
+import { keyPressedTrigger } from "~/utils";
 import type { RecursivePartial, Room } from "~/types";
 
 const AnimatedFlex = motion(Flex);
@@ -47,6 +48,8 @@ export const RoomCreationForm: React.FC<FlexProps> = ({ sx }) => {
   return (
     <AnimatedFlex
       sx={{
+        width: "420px",
+        maxWidth: "100%",
         px: 4,
         py: 5,
         borderRadius: 4,
@@ -55,14 +58,19 @@ export const RoomCreationForm: React.FC<FlexProps> = ({ sx }) => {
       }}
       layoutId={ROOM_KEY_ID}
     >
-      <Flex sx={{ flexDirection: "column", textAlign: "center", p: 3 }}>
+      <Flex
+        sx={{
+          flexDirection: "column",
+          textAlign: "center",
+          p: 3,
+        }}
+        onKeyPress={keyPressedTrigger("Enter", onCreateRoomHandler)}
+      >
         <Typography variant="subtitle" color="textLight">
           Create Room
         </Typography>
         <Typography variant="body2" mt="2" color="text">
-          To start planning it is necessary a room, let us start
-          <br />
-          by{" "}
+          To start planning it is necessary a room, lets star by{" "}
           <Typography variant="body2" mt="2" color="infoLight">
             creating one!
           </Typography>

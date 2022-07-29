@@ -9,7 +9,7 @@ export const Brand: React.FC<FlexProps> = ({ sx, ...rest }) => (
       width: "fit-content",
       borderColor: "backgroundLight",
       borderStyle: "solid",
-      borderWidth: "2px",
+      borderWidth: "3px",
       padding: 4,
       borderRadius: 4,
       ...sx,
@@ -29,8 +29,11 @@ export const Brand: React.FC<FlexProps> = ({ sx, ...rest }) => (
         Poker Planning
       </Typography>
       <Typography variant="body2" mt="2" sx={{ lineHeight: "24px" }}>
-        Create better estimates, healthier sprints,
-        <Adornment adornment="line1" sx={{ display: "block" }}>
+        Create better estimates, healthier sprints,{" "}
+        <Adornment
+          adornment="line1"
+          sx={{ display: ["inline-block", "block"] }}
+        >
           and happier teams.
         </Adornment>
       </Typography>

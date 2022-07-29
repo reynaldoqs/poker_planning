@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import { AuthProviderWrapper } from "~/context";
 import { theme } from "~/styles";
 import "../styles/globals.css";
+import { GoogleOneTap } from "~/components";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -20,6 +21,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             icon={false}
           /> */}
       </ThemeProvider>
+      <GoogleOneTap />
     </AuthProviderWrapper>
   );
 }

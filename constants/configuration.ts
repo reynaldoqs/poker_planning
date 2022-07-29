@@ -3,6 +3,7 @@ export const AUTH_PROVIDERS = {
   google: "google",
   browser: "browser",
   github: "github",
+  googleOneTap: "googleOneTap",
 } as const;
 
 export const AVATAR_PROVIDER = "https://avatars.dicebear.com/api/open-peeps/";

@@ -14,6 +14,6 @@ export const Popup: React.FC<PopupProps> = ({ trigger, children }) => (
     position="bottom right"
     arrowStyle={{ color: theme.colors.backgroundLight }}
   >
-    <Box sx={{ bg: "backgroundLight", borderRadius: 2 }}>{children}</Box>
+    <Box sx={{ bg: "backgroundLight", borderRadius: 3 }}>{children}</Box>
   </P>
 );

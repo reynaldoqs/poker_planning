@@ -1,7 +1,10 @@
-import { User } from "~/types";
+import { Player, User } from "~/types";
 
 export type UserMenuProps = {
-  user: User | null;
+  user: User | Player | null;
+  userType?: "user" | "player";
   onLogout?: () => void;
   onUserNameChange?: (value: string) => void;
+  onPlayerTypeToggle?: () => void;
+  onLeaveRoom?: () => void;
 };

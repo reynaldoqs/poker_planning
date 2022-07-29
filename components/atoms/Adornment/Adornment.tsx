@@ -7,7 +7,7 @@ const alignMap: Record<
   Exclude<AdornmentProps["align"], undefined>,
   `${number}px`
 > = {
-  top: "-6px",
+  top: "-10px",
   bottom: "10px",
   middle: "2px",
 };

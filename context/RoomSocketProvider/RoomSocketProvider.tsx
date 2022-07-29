@@ -19,6 +19,7 @@ import {
   onJoinRoom,
   onUpdatePlayer,
   onUpdateBoardStatus,
+  onLeaveRoom,
 } from "~/listeners/room.client";
 import type { BoardStatus, Player } from "~/types";
 
@@ -37,6 +38,7 @@ const RoomSocketInitialState: any = {
   connected: false,
   joined: false,
   joinCurrentRoom: () => {},
+  leaveCurrentRoom: () => {},
   updatePlayerVote: () => {},
   updatePlayerReaction: () => {},
   updateBoardStatus: () => {},
@@ -61,7 +63,7 @@ export const RoomSocketProvider: React.FC<RoomSocketProviderProps> = ({
   const [connected, setConnected] = useState(false);
   const [joined, setJoined] = useState(false);
 
-  const CURRENT_PLAYER_KEY = `[room_${room._id}]_current_player`;
+  const CURRENT_PLAYER_KEY = `[AUDI::${room._id}]:current_player`;
 
   const joinCurrentRoomHandler = () => {
     if (!currentPlayer) {
@@ -71,6 +73,15 @@ export const RoomSocketProvider: React.FC<RoomSocketProviderProps> = ({
     onJoinRoom(room._id, currentPlayer, () => {
       setJoined(true);
     });
+  };
+
+  const leaveCurrentRoomHandler = () => {
+    if (!currentPlayer) {
+      print.error("there is not currentPlayer");
+      return;
+    }
+    setJoined(false);
+    onLeaveRoom(currentPlayer);
   };
 
   const updatePlayerVoteHandler = (value: string | null) => {
@@ -102,16 +113,15 @@ export const RoomSocketProvider: React.FC<RoomSocketProviderProps> = ({
   };
 
   const updateCurrentPlayerHandler = (playerInput: Partial<Player> | null) => {
-    const updatedPlayer = {
-      ...currentPlayer,
-      ...playerInput,
-    } as Player;
-
-    if (!updatedPlayer) {
+    if (!playerInput) {
       setCurrentPlayer(null);
       removeItem(CURRENT_PLAYER_KEY);
       return;
     }
+    const updatedPlayer = {
+      ...currentPlayer,
+      ...playerInput,
+    } as Player;
 
     setItem(updatedPlayer, CURRENT_PLAYER_KEY);
 
@@ -184,6 +194,7 @@ export const RoomSocketProvider: React.FC<RoomSocketProviderProps> = ({
         connected,
         joined,
         joinCurrentRoom: joinCurrentRoomHandler,
+        leaveCurrentRoom: leaveCurrentRoomHandler,
         updatePlayerVote: updatePlayerVoteHandler,
         updatePlayerReaction: updatePlayerReactionHandler,
         updateBoardStatus: updateBoardStatusHandler,

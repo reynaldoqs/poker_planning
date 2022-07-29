@@ -1,4 +1,4 @@
-import type { Player, Room } from "~/types";
+import type { Player, Room, User } from "~/types";
 
 export const isAuthorizedToManage = (room: Room, playerId: string) => {
   if (room.roomConfig.whoCanManage === "OWNER") {
@@ -13,4 +13,8 @@ export const isAuthorizedToManage = (room: Room, playerId: string) => {
 export const includesParticipant = (room: Room, player: Player) => {
   if (!room.players || !room.players.length || !player) return false;
   return !!room.players.find((p) => p.playerId === player.playerId);
+};
+
+export const isPlayer = (input: User | Player): input is Player => {
+  return "type" in input && "playerId" in input; // for now it is enough to know if input is a player
 };

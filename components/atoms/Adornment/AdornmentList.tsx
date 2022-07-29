@@ -31,6 +31,22 @@ export const ADORNMENTS = {
       ></path>
     </svg>
   ),
+  line3: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 50 6"
+      fill="none"
+      preserveAspectRatio="none"
+      width="100%"
+    >
+      <path
+        stroke="#ff535f"
+        strokeLinecap="round"
+        strokeWidth="2"
+        d="M1 4.034c8 .5 15.05-2.66 25-3 8.836-.302 22.5 1.5 22.5 1.5"
+      ></path>
+    </svg>
+  ),
   circle1: (
     <svg
       xmlns="http://www.w3.org/2000/svg"

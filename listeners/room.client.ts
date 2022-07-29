@@ -19,6 +19,7 @@ export const onDisconnect = () => {
 };
 
 export const onJoinRoom = (roomId: string, player: Player, cb?: () => void) => {
+  console.log("HACEMOS JOIN DE AQUI");
   if (!roomId || !player.playerId || !socket) return;
   console.log(`[${player.name}] joining room...`);
   socket.emit(request.joinRoom, roomId, player, cb);

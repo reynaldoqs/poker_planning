@@ -16,15 +16,15 @@ import type {
   AuthProviderState,
   AuthProviderWrapperProps,
 } from "./AuthProvider.types";
-import { delay } from "~/utils/misc";
 
-const LOCAL_USER_KEY = "pk_local_user";
+const LOCAL_USER_KEY = "[AUDI::014]:local_user";
 
 const authInitialStates: AuthProviderState = {
   user: null,
   isLoading: false,
   signIn: () => {},
   signOut: () => {},
+  oneTapSignIn: () => {},
 };
 
 const AuthContext = createContext<AuthProviderState>(authInitialStates);
@@ -41,10 +41,17 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setLoading(true);
     const localUser = await generateLocalUser(name);
     setItem(localUser, LOCAL_USER_KEY);
-    // just to improve UX
-    //await delay(2800);
     setUser(localUser);
     setLoading(false);
+  };
+
+  const onOneTapSignInHandler = (inputUser: User) => {
+    if (user) {
+      print.info("already logged in");
+      return;
+    }
+    setItem(inputUser, LOCAL_USER_KEY);
+    setUser(inputUser);
   };
 
   const signInHandler = (
@@ -55,7 +62,6 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       print.info("already logged in");
       return;
     }
-    //setLoading(true); // reload page or status or onBrowserAuth will set it to false
     if (provider === AUTH_PROVIDERS.browser && name) {
       onBrowserAuth(name);
     } else if (provider !== AUTH_PROVIDERS.browser) {
@@ -69,10 +75,10 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       print.info("There is no user logged in");
       return;
     }
-    //setLoading(true); // reload page or browser auth will set it to false
-    // just to improve UX
-    //await delay(300);
-    if (user.provider === AUTH_PROVIDERS.browser) {
+    if (
+      user.provider === AUTH_PROVIDERS.browser ||
+      user.provider === AUTH_PROVIDERS.googleOneTap
+    ) {
       removeItem(LOCAL_USER_KEY);
       setUser(null);
       setLoading(false);
@@ -117,6 +123,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         isLoading,
         signIn: signInHandler,
         signOut: signOutHandler,
+        oneTapSignIn: onOneTapSignInHandler,
       }}
     >
       {children}

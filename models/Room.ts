@@ -71,7 +71,7 @@ export const removePlayer = (roomId: string, player: Player) => {
   return DBRoom.findByIdAndUpdate(
     roomId,
     {
-      $pullAll: { playerID: player.playerId }, // or $pop
+      $pull: { players: { playerId: player.playerId } },
     },
     { new: true }
   );

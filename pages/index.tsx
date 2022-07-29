@@ -1,8 +1,8 @@
 import { Flex, Grid } from "theme-ui";
 import type { NextPage } from "next";
-import Link from "next/link";
 
 import {
+  AudiSign,
   Brand,
   HomeUserManager,
   MainBackground,
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
           gridTemplateColumns: "1fr",
           gridTemplateRows: "110px auto 1fr 110px",
           gridTemplateAreas: DESKTOP_AREAS,
-          overflow: "hidden",
+          overflowY: "auto",
         }}
       >
         <Flex sx={{ gridArea: "nav" }}>
@@ -63,15 +63,15 @@ const Home: NextPage = () => {
           <RoomCreationForm />
           <PlansBanner
             sx={{
-              mt: [0, 0, 0, 9],
+              mt: [0, 0, 0, 4],
               alignSelf: ["flex-start", "center"],
               display: ["flex", "flex", "none", "flex"],
             }}
           />
         </Flex>
-        <Flex sx={{ gridArea: "content" }}>middle</Flex>
-        <Flex sx={{ gridArea: "footer" }}>
-          <Link href="/room">vfooter</Link>
+        <Flex sx={{ gridArea: "content" }}></Flex>
+        <Flex sx={{ gridArea: "footer", px: 5 }}>
+          <AudiSign />
         </Flex>
       </Grid>
     </MainBackground>

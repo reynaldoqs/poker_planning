@@ -1,25 +1,43 @@
-import { Flex } from "theme-ui";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import print from "consola";
 
-import { Button, Modal } from "~/components/atoms";
+import { Modal } from "~/components/atoms";
 import { MainRoleSelector, UserMenu } from "~/components/molecules";
 import { useRoomSocket, useUserAuth } from "~/context";
 
 import { LoginForm } from "../LoginForm";
 import { LOGIN_KEY_ID } from "~/constants";
-import { usePlayerCheckIn } from "~/hooks";
-
-const AnimatedButton = motion(Button);
+import { usePlayerCheckIn } from "./RoomUserManager.hooks";
 
 export const RoomUserManager: React.FC = () => {
   const { user, signOut } = useUserAuth();
-  const { updateCurrentPlayer, roomConfig } = useRoomSocket();
+  const {
+    updateCurrentPlayer,
+    roomConfig,
+    currentPlayer: player,
+    leaveCurrentRoom,
+  } = useRoomSocket();
 
   const { showLoginModal, showRoleModal, onRoleSelection } = usePlayerCheckIn();
 
+  const router = useRouter();
+
   const logoutHandler = () => {
+    leaveCurrentRoom();
     updateCurrentPlayer(null);
     signOut();
+  };
+
+  const onPlayerTypeToggleHandler = () => {
+    const playerType = player?.type === "OBSERVER" ? "PLAYER" : "OBSERVER";
+    updateCurrentPlayer({ type: playerType });
+  };
+
+  const onLeaveRoomHandler = () => {
+    leaveCurrentRoom(); // It throws an error when disconnected at same time
+    router.push("/");
+    updateCurrentPlayer(null);
   };
 
   return (
@@ -34,21 +52,16 @@ export const RoomUserManager: React.FC = () => {
           user={user}
         />
       </Modal>
-      {
-        user ? (
-          <motion.div layoutId={LOGIN_KEY_ID}>
-            <UserMenu user={user} onLogout={logoutHandler} />
-          </motion.div>
-        ) : null
-        // <AnimatedButton
-        //   variant="secondary"
-        //   size="sm"
-        //   onClick={onOpenLogin}
-        //   layoutId={LOGIN_KEY_ID}
-        // >
-        //   Login
-        // </AnimatedButton>
-      }
+      {user && player && (
+        <motion.div layoutId={LOGIN_KEY_ID}>
+          <UserMenu
+            user={player}
+            onLogout={logoutHandler}
+            onPlayerTypeToggle={onPlayerTypeToggleHandler}
+            onLeaveRoom={onLeaveRoomHandler}
+          />
+        </motion.div>
+      )}
     </>
   );
 };
